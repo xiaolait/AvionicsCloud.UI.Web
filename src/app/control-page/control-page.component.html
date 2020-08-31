@@ -1,0 +1,83 @@
+<div>
+    <nz-page-header  nzTitle="作战页面" nzSubtitle="This is a subtitle" style="font-weight: bold;font-size:16px"> </nz-page-header>
+<div style="height:350px;">
+    <nz-card style="width:400px;height:350px;float: left;margin-left: 100px" nzTitle="武器资源管理" >
+        <nz-table
+        #weaponrowSelectionTable
+        [nzShowPagination]="false"
+        [nzData]="weapons">
+        <thead>
+          <tr>
+            <th></th>
+            <th>武器名称</th>
+            <th>数量</th>
+            <th>所属飞机</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let weapon of weaponrowSelectionTable.data">
+            <td
+              nzShowCheckbox
+              [nzDisabled]="weapon.disable"
+              (nzCheckedChange)="checkWeapon(weapon.name, weapon.dev)"
+            ></td>
+            <td>{{ weapon.name }}</td>
+            <td>{{ weapon.num }}</td>
+            <td>{{ weapon.dev }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+    <nz-card style="width:400px;height:350px;float: left;margin-left: 100px" nzTitle="探测资源管理" >
+        <nz-table
+        #rowSelectionTable
+        [nzShowPagination]="false"
+        [nzData]="surveys">
+        <thead>
+          <tr>
+            <th></th>
+            <th>名称</th>
+            <th>所属飞机</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let survey of rowSelectionTable.data">
+            <td
+              nzShowCheckbox
+              [nzDisabled]="survey.disable"
+              (nzCheckedChange)="checkSurvey(survey.dev)"
+            ></td>
+            <td>{{ survey.name }}</td>
+            <td>{{ survey.dev }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+    <nz-card style="width:400px;height:350px;float: left;margin-left: 100px" nzTitle="本机传感器" >
+        <li style="font-size: 16px">大气</li>
+        <li style="font-size: 16px">惯导</li>
+    </nz-card>
+</div>
+<div style="padding-top: 10px">
+    <button nz-button nzType="primary" (click)="startWar()" style="margin-left: 230px"><i nz-icon nzType="play-circle" nzTheme="outline"></i>启动作战</button>
+</div>
+<div style="padding-top: 10px">
+    <textarea nz-input [(ngModel)]="weaponInfo" style="margin-left: 100px;width: 400px;resize: none;" rows="10"></textarea>
+    <textarea nz-input [(ngModel)]="surveyInfo" style="margin-left: 100px;width: 400px;resize: none;" rows="10"></textarea>
+</div>
+<div style="padding-top: 10px;height: 100px">
+    <button nz-button nzType="danger" [disabled]="canLaunch" (click)="launch()" style="margin-left: 230px;"><i nz-icon nzType="rocket" nzTheme="outline"></i>发射</button>
+    <div style="margin-left: 600px;margin-top: -40px">
+        <nz-col [nzSpan]="4">
+            <nz-statistic [nzValue]="lng | number: '1.0-2'" [nzTitle]="'longitude'"></nz-statistic>
+          </nz-col>
+          <nz-col [nzSpan]="4">
+            <nz-statistic [nzValue]="lat | number: '1.0-2'" [nzTitle]="'latitude'"></nz-statistic>
+          </nz-col>
+          <nz-col [nzSpan]="4">
+            <nz-statistic [nzValue]="het | number: '1.0-2'" [nzTitle]="'altitude'"></nz-statistic>
+          </nz-col>       
+    </div>    
+</div>
+<div></div>
+</div>
